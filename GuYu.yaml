@@ -1,0 +1,74 @@
+# 文件名：2026年05月16号.yaml
+proxies:
+  - name: "2026年05月16号"
+    type: vmess
+    server: 47.79.7.147
+    port: 1311
+    uuid: 040d5e03-014e-43c4-94cd-f3dc4bfbc6f0
+    alterId: 0
+    cipher: auto
+    network: tcp
+    tls: false
+
+  - name: "0点"
+    type: vmess
+    server: 47.79.7.147
+    port: 1311
+    uuid: e627e98b-0ba9-4e85-e203-a53c754b0dd4
+    alterId: 0
+    cipher: auto
+    network: tcp
+    tls: false
+
+  - name: "服务器到期"
+    type: vmess
+    server: 47.79.7.147
+    port: 1311
+    uuid: 2e143fb1-a694-4e6b-f298-0523f4c1f10e
+    alterId: 0
+    cipher: auto
+    network: tcp
+    tls: false
+
+# ---------------- 代理组（标准无报错） ----------------
+proxy-groups:
+  - name: "🚀 节点选择"
+    type: select
+    proxies:
+      - 2026年05月16号
+      - 0点
+      - 服务器到期
+      - DIRECT
+
+  - name: "🌐 全局代理"
+    type: select
+    proxies:
+      - 2026年05月16号
+      - 0点
+      - 服务器到期
+
+# ---------------- 分流规则（合肥地区专用） ----------------
+rules:
+  # 国内IP/网站 直连
+  - GEOIP,CN,DIRECT
+  - DOMAIN-SUFFIX,cn,DIRECT
+  - DOMAIN-SUFFIX,com.cn,DIRECT
+  - DOMAIN-SUFFIX,gov.cn,DIRECT
+  - DOMAIN-SUFFIX,edu.cn,DIRECT
+  
+  # 国内常用服务 直连
+  - DOMAIN-SUFFIX,baidu.com,DIRECT
+  - DOMAIN-SUFFIX,qq.com,DIRECT
+  - DOMAIN-SUFFIX,bilibili.com,DIRECT
+  - DOMAIN-SUFFIX,taobao.com,DIRECT
+  - DOMAIN-SUFFIX,jd.com,DIRECT
+
+  # 国外网站 走代理
+  - DOMAIN-SUFFIX,google.com,🚀 节点选择
+  - DOMAIN-SUFFIX,youtube.com,🚀 节点选择
+  - DOMAIN-SUFFIX,github.com,🚀 节点选择
+  - DOMAIN-SUFFIX,twitter.com,🚀 节点选择
+  - DOMAIN-SUFFIX,instagram.com,🚀 节点选择
+
+  # 默认规则
+  - MATCH,🚀 节点选择
